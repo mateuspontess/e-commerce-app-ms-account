@@ -1,3 +1,4 @@
+
 package br.com.ecommerce.accounts.annotation;
 
 import com.google.i18n.phonenumbers.NumberParseException;
@@ -14,16 +15,19 @@ public class PhoneNumberImplementation implements ConstraintValidator<PhoneNumbe
 	
 	@Override
 	public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-		PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
-		PhoneNumber pn;
-		
-		try {
-			pn = pnUtil.parse(phoneNumber, "BR");
+		if (phoneNumber != null && !phoneNumber.isEmpty()) {
+			PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
+			PhoneNumber pn;
 			
-		} catch (NumberParseException e) {
-			return false;
-		}
-		
-		return pnUtil.isValidNumberForRegion(pn, "BR");
+			try {
+				pn = pnUtil.parse(phoneNumber, "BR");
+				
+			} catch (NumberParseException e) {
+				return false;
+			}
+			
+			return pnUtil.isValidNumberForRegion(pn, "BR");
+		}	
+		return false;
 	}
 }
