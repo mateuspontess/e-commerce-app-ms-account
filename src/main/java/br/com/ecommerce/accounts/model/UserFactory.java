@@ -25,7 +25,7 @@ public class UserFactory {
     private UserRole role;
 
     
-    public UserFactory createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address, UserRole role) {
+    public UserFactory createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address) {
     	this.password = this.encodePassword(password);
     	this.phone_number = this.formatPhoneNumber(phone_number);
     	
