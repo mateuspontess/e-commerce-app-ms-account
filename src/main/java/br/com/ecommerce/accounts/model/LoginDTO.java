@@ -6,7 +6,8 @@ import jakarta.validation.constraints.Size;
 
 public record LoginDTO(
 		
-	    @NotBlank @Size(min = 3) 
+	    @NotBlank
+	    @Size(min = 3, message = "Cannot be less than 3 characters") 
 	    String username,
 	    
 	    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
