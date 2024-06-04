@@ -12,7 +12,7 @@ import br.com.ecommerce.accounts.model.TokenDTO;
 import br.com.ecommerce.accounts.model.User;
 import br.com.ecommerce.accounts.model.UserClientDTO;
 import br.com.ecommerce.accounts.model.UserEmployeeDTO;
-import br.com.ecommerce.accounts.model.UserFactory;
+import br.com.ecommerce.accounts.model.UserBuilder;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -29,7 +29,7 @@ public class UserService {
 	
 	public void createUserClient(UserClientDTO dto) {
 		AddressDTO a = dto.address();
-		User user = new UserFactory()
+		User user = new UserBuilder()
 				.createUserClient(
 						dto.username(), 
 						dto.password(), 
@@ -50,7 +50,7 @@ public class UserService {
 		repository.save(user);
 	}
 	public void createUserEmployee(UserEmployeeDTO dto) {
-		User user = new UserFactory()
+		User user = new UserBuilder()
 				.createUserEmployee(
 						dto.username(),
 						dto.password(),

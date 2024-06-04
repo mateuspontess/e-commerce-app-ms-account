@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class UserFactory {
+public class UserBuilder {
 
     private Long id;
     private String username;
@@ -25,7 +25,7 @@ public class UserFactory {
     private UserRole role;
 
     
-    public UserFactory createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address) {
+    public UserBuilder createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address) {
     	this.password = this.encodePassword(password);
     	this.phone_number = this.formatPhoneNumber(phone_number);
     	
@@ -46,7 +46,7 @@ public class UserFactory {
         
         return this;
     }
-    public UserFactory createUserEmployee(String username, String password, String name) {
+    public UserBuilder createUserEmployee(String username, String password, String name) {
     	this.password = this.encodePassword(password);
     	
     	this.username = username;
@@ -55,7 +55,7 @@ public class UserFactory {
     	
     	return this;
     }
-    public UserFactory createUserAdmin(String username, String password, UserRole role) {
+    public UserBuilder createUserAdmin(String username, String password, UserRole role) {
     	this.password = this.encodePassword(password);
     	this.username = username;
     	this.role = UserRole.ADMIN;
