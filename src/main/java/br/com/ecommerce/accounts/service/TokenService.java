@@ -11,6 +11,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 
+import br.com.ecommerce.accounts.exception.FailedCredentialsException;
 import br.com.ecommerce.accounts.model.User;
 
 @Service
@@ -28,8 +29,9 @@ public class TokenService {
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
+            
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("Error while generating token", exception);
+            throw new FailedCredentialsException("Error while generating token", exception);
         }
     }
 
