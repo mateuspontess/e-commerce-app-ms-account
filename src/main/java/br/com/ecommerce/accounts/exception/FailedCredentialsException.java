@@ -6,4 +6,7 @@ public class FailedCredentialsException extends RuntimeException {
 	public FailedCredentialsException(String message) {
 		super(message);
 	}
+	public FailedCredentialsException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }
