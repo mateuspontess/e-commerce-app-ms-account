@@ -7,6 +7,7 @@ import br.com.ecommerce.accounts.model.User;
 import br.com.ecommerce.accounts.model.UserBuilder;
 import br.com.ecommerce.accounts.model.UserRole;
 import br.com.ecommerce.accounts.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class UserAdminCreation {
@@ -18,7 +19,7 @@ public class UserAdminCreation {
 	@Value("${user.admin.password}")
 	private String password;
 	
-	
+	@PostConstruct
 	public void createUserAdmin() {
 		if(!rp.existsByUsername(username)) {
 			User userAdmin = new UserBuilder()
