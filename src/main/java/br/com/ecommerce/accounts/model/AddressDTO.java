@@ -1,21 +1,21 @@
 package br.com.ecommerce.accounts.model;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record AddressDTO (
 		
-    @NotNull
+    @NotBlank
     String street,
-    @NotNull
+    @NotBlank
     String neighborhood,
-    @NotNull
+    @NotBlank
     String postal_code,
-    @NotNull
+    @NotBlank
     String number,
-    @NotNull
+    @NotBlank
     String complement,
-    @NotNull
+    @NotBlank
     String city,
-    @NotNull
+    @NotBlank
     String state
 	){}
