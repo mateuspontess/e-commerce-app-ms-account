@@ -46,6 +46,7 @@ public class UserService {
 								a.city(),
 								a.state()))
 				.build();
+
 		repository.save(user);
 	}
 	public void createUserEmployee(UserEmployeeDTO dto) {
@@ -56,6 +57,7 @@ public class UserService {
 						dto.name()
 						)
 				.build();
+				
 		repository.save(user);
 	}
 

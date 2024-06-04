@@ -26,8 +26,7 @@ public class AccountController {
 	
 	@PostMapping("/auth")
 	public ResponseEntity<TokenDTO> login(@RequestBody @Valid LoginDTO dto) {
-		TokenDTO token = service.auth(dto);
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok(service.auth(dto));
 	}
 	
 	@PostMapping("/create")
