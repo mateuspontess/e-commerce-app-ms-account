@@ -18,7 +18,6 @@ public class PhoneNumberImplementation implements ConstraintValidator<PhoneNumbe
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
 			PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
 			PhoneNumber pn;
-			
 			try {
 				pn = pnUtil.parse(phoneNumber, "BR");
 				

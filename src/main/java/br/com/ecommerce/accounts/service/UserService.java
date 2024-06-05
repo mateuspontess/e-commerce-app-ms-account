@@ -29,23 +29,22 @@ public class UserService {
 	
 	public void createUserClient(UserClientDTO dto) {
 		AddressDTO a = dto.address();
-		User user = new UserBuilder()
-				.createUserClient(
-						dto.username(), 
-						dto.password(), 
-						dto.name(), 
-						dto.email(), 
-						dto.phone_number(), 
-						dto.cpf(),
-						new Address(
-								a.street(),
-								a.neighborhood(),
-								a.postal_code(),
-								a.number(),
-								a.complement(),
-								a.city(),
-								a.state()))
-				.build();
+		User user = new UserBuilder().createUserClient(
+			dto.username(), 
+			dto.password(),
+			dto.name(),
+			dto.email(),
+			dto.phone_number(),
+			dto.cpf(),
+			new Address(
+					a.street(),
+					a.neighborhood(),
+					a.postal_code(),
+					a.number(),
+					a.complement(),
+					a.city(),
+					a.state()))
+			.build();
 
 		repository.save(user);
 	}
