@@ -43,33 +43,32 @@ public class UserService {
 					a.number(),
 					a.complement(),
 					a.city(),
-					a.state()))
+					a.state()
+				)
+			)
 			.build();
 
 		repository.save(user);
 	}
 	public void createUserEmployee(UserEmployeeDTO dto) {
 		User user = new UserBuilder()
-				.createUserEmployee(
-						dto.username(),
-						dto.password(),
-						dto.name()
-						)
-				.build();
+			.createUserEmployee(
+				dto.username(),
+				dto.password(),
+				dto.name()
+			)
+			.build();
 				
 		repository.save(user);
 	}
 
 	public TokenDTO auth(LoginDTO dto) {
-		User user = repository
-				.findByUsername(dto.username())
-				.orElseThrow(EntityNotFoundException::new);
-		String presentedPassword = dto.password();
+		User user = repository.findByUsername(dto.username())
+			.orElseThrow(EntityNotFoundException::new);
 
-		if (!this.passwordEncoder.matches(presentedPassword, user.getPassword()))
+		if (!this.passwordEncoder.matches(dto.password(), user.getPassword()))
 			throw new FailedCredentialsException("Bad credentials");
 		
-		String tokenText = tokenService.generateToken(user);
-		return new TokenDTO(tokenText);
+		return new TokenDTO(tokenService.generateToken(user));
 	}
 }
