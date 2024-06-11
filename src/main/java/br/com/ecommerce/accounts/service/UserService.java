@@ -10,9 +10,11 @@ import br.com.ecommerce.accounts.model.AddressDTO;
 import br.com.ecommerce.accounts.model.LoginDTO;
 import br.com.ecommerce.accounts.model.TokenDTO;
 import br.com.ecommerce.accounts.model.User;
-import br.com.ecommerce.accounts.model.UserClientDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.model.UserBuilder;
+import br.com.ecommerce.accounts.model.UserClientCreatedDTO;
+import br.com.ecommerce.accounts.model.UserClientDTO;
+import br.com.ecommerce.accounts.model.UserEmployeeCreatedDTO;
+import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -27,30 +29,29 @@ public class UserService {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	
-	public void createUserClient(UserClientDTO dto) {
+	public UserClientCreatedDTO createUserClient(UserClientDTO dto) {
 		AddressDTO a = dto.address();
 		User user = new UserBuilder().createUserClient(
-			dto.username(), 
-			dto.password(),
-			dto.name(),
-			dto.email(),
-			dto.phone_number(),
-			dto.cpf(),
-			new Address(
-					a.street(),
-					a.neighborhood(),
-					a.postal_code(),
-					a.number(),
-					a.complement(),
-					a.city(),
-					a.state()
-				)
-			)
-			.build();
+				dto.username(),
+				dto.password(),
+				dto.name(),
+				dto.email(),
+				dto.phone_number(),
+				dto.cpf(),
+				new Address(
+						a.street(),
+						a.neighborhood(),
+						a.postal_code(),
+						a.number(),
+						a.complement(),
+						a.city(),
+						a.state()))
+				.build();
 
 		repository.save(user);
+		return new UserClientCreatedDTO(user);
 	}
-	public void createUserEmployee(UserEmployeeDTO dto) {
+	public UserEmployeeCreatedDTO createUserEmployee(UserEmployeeDTO dto) {
 		User user = new UserBuilder()
 			.createUserEmployee(
 				dto.username(),
@@ -60,6 +61,7 @@ public class UserService {
 			.build();
 				
 		repository.save(user);
+		return new UserEmployeeCreatedDTO(user);
 	}
 
 	public TokenDTO auth(LoginDTO dto) {

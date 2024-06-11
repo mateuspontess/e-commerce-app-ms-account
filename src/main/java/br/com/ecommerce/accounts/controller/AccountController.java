@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ecommerce.accounts.model.LoginDTO;
 import br.com.ecommerce.accounts.model.TokenDTO;
+import br.com.ecommerce.accounts.model.UserClientCreatedDTO;
 import br.com.ecommerce.accounts.model.UserClientDTO;
+import br.com.ecommerce.accounts.model.UserEmployeeCreatedDTO;
 import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.service.UserService;
 import jakarta.transaction.Transactional;
@@ -31,15 +33,15 @@ public class AccountController {
 	
 	@PostMapping("/create")
 	@Transactional
-	public ResponseEntity<UserClientDTO> createCommonUser(@RequestBody @Valid UserClientDTO dto) {
-		service.createUserClient(dto);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<UserClientCreatedDTO> createCommonUser(@RequestBody @Valid UserClientDTO dto) {
+		UserClientCreatedDTO userData = service.createUserClient(dto);
+		return ResponseEntity.ok().body(userData);
 	}
 	
 	@PostMapping("/create/employee")
 	@Transactional
-	public ResponseEntity<UserClientDTO> createEmployeeUser(@RequestBody @Valid UserEmployeeDTO dto) {
-		service.createUserEmployee(dto);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<UserEmployeeCreatedDTO> createEmployeeUser(@RequestBody @Valid UserEmployeeDTO dto) {
+		UserEmployeeCreatedDTO userData = service.createUserEmployee(dto);
+		return ResponseEntity.ok().body(userData);
 	}
 }
