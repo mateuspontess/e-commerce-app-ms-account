@@ -32,12 +32,10 @@ public class GlobalExceptionHandler {
 		return ResponseEntity
 				.status(HttpStatus.UNAUTHORIZED)
 				.body(new ErrorMessage(
-						HttpStatus.UNAUTHORIZED.value(), 
-						ENTITY_NOT_FOUND_EXCEPTION
-						)
-					);
+						HttpStatus.UNAUTHORIZED.value(),
+						ENTITY_NOT_FOUND_EXCEPTION));
 	}
-	
+
 	@ExceptionHandler(FailedCredentialsException.class)
 	public ResponseEntity<ErrorMessage> handleError401(FailedCredentialsException ex) {
 		return ResponseEntity
@@ -48,17 +46,16 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorMessageWithFields> handleError400(MethodArgumentNotValidException ex) {
-    	var fields = ex.getFieldErrors().stream().collect(Collectors.toMap(f -> f.getField().toString(), f -> f.getDefaultMessage()));
-    	
-    	return ResponseEntity.badRequest()
-    			.body(new ErrorMessageWithFields(
-					HttpStatus.BAD_REQUEST.value(),
-					METHOD_ARGUMENT_NOT_VALID_MESSAGE,
-					fields
-					)
-				);
-    }
+	public ResponseEntity<ErrorMessageWithFields> handleError400(MethodArgumentNotValidException ex) {
+		var fields = ex.getFieldErrors().stream()
+				.collect(Collectors.toMap(f -> f.getField().toString(), f -> f.getDefaultMessage()));
+
+		return ResponseEntity.badRequest()
+				.body(new ErrorMessageWithFields(
+						HttpStatus.BAD_REQUEST.value(),
+						METHOD_ARGUMENT_NOT_VALID_MESSAGE,
+						fields));
+	}
 	
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<ErrorMessage> handlerErro400IllegalArgumentException(IllegalArgumentException ex) {
@@ -82,15 +79,13 @@ public class GlobalExceptionHandler {
     }
 
 	@ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorMessage> handleError500(Exception ex) {
-        return ResponseEntity
-        		.internalServerError()
-        		.body(new ErrorMessage(
-        				HttpStatus.INTERNAL_SERVER_ERROR.value(),
-        				INTERNAL_SERVER_ERROR_MESSAGE
-						)
-					);
-    }
+	public ResponseEntity<ErrorMessage> handleError500(Exception ex) {
+		return ResponseEntity
+				.internalServerError()
+				.body(new ErrorMessage(
+						HttpStatus.INTERNAL_SERVER_ERROR.value(),
+						INTERNAL_SERVER_ERROR_MESSAGE));
+	}
 	
 	private record ErrorMessage(int status, Object error) {}
 	private record ErrorMessageWithFields(int status, String error, Object fields) {}

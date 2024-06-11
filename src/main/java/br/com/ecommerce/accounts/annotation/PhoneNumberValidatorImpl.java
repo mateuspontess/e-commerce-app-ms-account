@@ -7,6 +7,8 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+/* Unlike the Users-MS service, it does not allow null/blank entries, as in this service the entry is made only once.
+*/
 public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumberValidator, String>{
 	
 	@Override
