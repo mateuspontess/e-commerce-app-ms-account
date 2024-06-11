@@ -1,4 +1,3 @@
-
 package br.com.ecommerce.accounts.annotation;
 
 import com.google.i18n.phonenumbers.NumberParseException;
@@ -8,7 +7,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PhoneNumberImplementation implements ConstraintValidator<PhoneNumberValidator, String>{
+public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumberValidator, String>{
 	
 	@Override
 	public void initialize(PhoneNumberValidator constraintAnnotation) {}
@@ -18,6 +17,7 @@ public class PhoneNumberImplementation implements ConstraintValidator<PhoneNumbe
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
 			PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
 			PhoneNumber pn;
+			
 			try {
 				pn = pnUtil.parse(phoneNumber, "BR");
 				
