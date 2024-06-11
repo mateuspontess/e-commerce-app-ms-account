@@ -10,7 +10,7 @@ import jakarta.validation.Payload;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PhoneNumberImplementation.class)
+@Constraint(validatedBy = PhoneNumberValidatorImpl.class)
 public @interface PhoneNumberValidator {
 	
     String message() default "Invalid phone number.";
