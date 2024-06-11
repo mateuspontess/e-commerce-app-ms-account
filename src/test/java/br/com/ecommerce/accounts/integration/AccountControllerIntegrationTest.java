@@ -100,7 +100,7 @@ class AccountControllerIntegrationTest {
 
     @Test
     @DisplayName("Create client user with valid data - must return status 200 and user data")
-    void createClientUserTest02() throws IOException, Exception {
+    void createClientUserTest01() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
                 "userclient-san",
@@ -131,8 +131,8 @@ class AccountControllerIntegrationTest {
                 .andExpect(jsonPath("$.cpf").isNotEmpty());
     }
     @Test
-    @DisplayName("Create client user with invalid data - must return status 200 and user data")
-    void createClientUserTest01() throws IOException, Exception {
+    @DisplayName("Create client user with invalid data - must return status 400 and fields with error")
+    void createClientUserTest02() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
                 "us",
