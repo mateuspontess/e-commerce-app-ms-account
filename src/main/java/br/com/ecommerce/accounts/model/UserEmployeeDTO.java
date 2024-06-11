@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record UserEmployeeDTO (
 	
-    @NotBlank @Size(min = 3)
+    @Size(min = 3, message = "size must be 3 or more characters")
     String username,
     
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
