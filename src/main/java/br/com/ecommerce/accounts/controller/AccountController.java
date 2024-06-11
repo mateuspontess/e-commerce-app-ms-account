@@ -33,7 +33,7 @@ public class AccountController {
 	
 	@PostMapping("/create")
 	@Transactional
-	public ResponseEntity<UserClientCreatedDTO> createCommonUser(@RequestBody @Valid UserClientDTO dto) {
+	public ResponseEntity<UserClientCreatedDTO> createClientUser(@RequestBody @Valid UserClientDTO dto) {
 		UserClientCreatedDTO userData = service.createUserClient(dto);
 		return ResponseEntity.ok().body(userData);
 	}
