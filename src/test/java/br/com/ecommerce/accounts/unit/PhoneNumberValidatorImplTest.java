@@ -23,7 +23,7 @@ class PhoneNumberValidatorImplTest {
 
 
     @Test
-    @DisplayName("Valid phone number should return true")
+    @DisplayName("Unit - Valid phone number should return true")
     void testIsValid_withValidPhoneNumber() {
         String validPhoneNumber = "+5511999999999";
         assertTrue(phoneNumberImplementation.isValid(validPhoneNumber, constraintValidatorContext));
@@ -32,28 +32,28 @@ class PhoneNumberValidatorImplTest {
     }
 
     @Test
-    @DisplayName("Invalid phone number should return false")
+    @DisplayName("Unit - Invalid phone number should return false")
     void testIsValid_withInvalidPhoneNumber() {
         String invalidPhoneNumber = "+551199999999";
         assertFalse(phoneNumberImplementation.isValid(invalidPhoneNumber, constraintValidatorContext));
     }
 
     @Test
-    @DisplayName("Null phone number should return false")
+    @DisplayName("Unit - Null phone number should return false")
     void testIsValid_withNullPhoneNumber() {
         String nullPhoneNumber = null;
         assertFalse(phoneNumberImplementation.isValid(nullPhoneNumber, constraintValidatorContext));
     }
 
     @Test
-    @DisplayName("Empty phone number should return false")
+    @DisplayName("Unit - Empty phone number should return false")
     void testIsValid_withEmptyPhoneNumber() {
         String emptyPhoneNumber = "";
         assertFalse(phoneNumberImplementation.isValid(emptyPhoneNumber, constraintValidatorContext));
     }
 
     @Test
-    @DisplayName("Invalid format phone number should return false")
+    @DisplayName("Unit - Invalid format phone number should return false")
     void testIsValid_withInvalidFormatPhoneNumber() {
         String invalidFormatPhoneNumber = "not-a-phone-number";
         assertFalse(phoneNumberImplementation.isValid(invalidFormatPhoneNumber, constraintValidatorContext));

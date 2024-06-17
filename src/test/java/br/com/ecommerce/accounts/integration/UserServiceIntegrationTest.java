@@ -41,10 +41,10 @@ class UserServiceIntegrationTest {
 
 
     @Test
-    @DisplayName("Must create a user client")
-    void createUserClientTest01() {
+    @DisplayName("Integration - saveUserClient - Must create a user client")
+    void saveUserClientTest01() {
         // arrange
-        UserClientDTO userClientDTO = new UserClientDTO(
+        UserClientDTO input = new UserClientDTO(
             "userclient-san",
             "password-san!",
             "Client-san",
@@ -54,37 +54,37 @@ class UserServiceIntegrationTest {
             new AddressDTO(null, null, null, null, null, null, null));
 
         // act
-        var result = service.createUserClient(userClientDTO);
+        var result = service.saveClientUser(input);
         
         // assert
         assertNotNull(result);
         assertNotNull(result.id());
         assertFalse(result.phone_number().isBlank());
-        assertEquals(userClientDTO.name(), result.name());
-        assertEquals(userClientDTO.email(), result.email());
-        assertEquals(userClientDTO.cpf(), result.cpf());
+        assertEquals(input.name(), result.name());
+        assertEquals(input.email(), result.email());
+        assertEquals(input.cpf(), result.cpf());
     }
 
     @Test
-    @DisplayName("Must create a user employee")
-    void createUserEmployeeTest01() {
+    @DisplayName("Integration - saveUserEmployee - Must create a user employee")
+    void saveUserEmployeeTest01() {
         // arrange
-        UserEmployeeDTO userEmployee = new UserEmployeeDTO(
+        UserEmployeeDTO input = new UserEmployeeDTO(
             "userclient-san",
             "password-san!",
             "Client-san");
 
         // act
-        var result = service.createUserEmployee(userEmployee);
+        var result = service.saveEmployeeUser(input);
         
         // assert
         assertNotNull(result.id());
-        assertEquals(userEmployee.username(), result.username());
-        assertEquals(userEmployee.name(), result.name());
+        assertEquals(input.username(), result.username());
+        assertEquals(input.name(), result.name());
     }
 
     @Test
-    @DisplayName("Must authenticate successfully and return a token in valid format")
+    @DisplayName("Integration - auth - Must authenticate successfully and return a token in valid format")
     void authTest01() {
         // arrange
         String USERNAME = "test";
@@ -102,7 +102,7 @@ class UserServiceIntegrationTest {
         });
     }
     @Test
-    @DisplayName("Must throw exceptions when passing invalid input")
+    @DisplayName("Integration - auth - Must throw exceptions when passing invalid input")
     void authTest02() {
         // arrange
         String USERNAME = "test";

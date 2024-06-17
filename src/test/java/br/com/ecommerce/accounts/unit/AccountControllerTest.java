@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import br.com.ecommerce.accounts.controller.AccountController;
 import br.com.ecommerce.accounts.model.AddressDTO;
 import br.com.ecommerce.accounts.model.LoginDTO;
 import br.com.ecommerce.accounts.model.UserClientDTO;
@@ -24,7 +25,7 @@ import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import br.com.ecommerce.accounts.service.UserService;
 
-@WebMvcTest
+@WebMvcTest(AccountController.class)
 @AutoConfigureJsonTesters
 class AccountControllerTest {
 
@@ -38,7 +39,6 @@ class AccountControllerTest {
     @Autowired
     private JacksonTester<UserEmployeeDTO> userEmployeeDTOJson;
 
-
     @MockBean
     private UserService service;
     @MockBean
@@ -46,7 +46,7 @@ class AccountControllerTest {
 
 
     @Test
-    @DisplayName("Login unit test - must return status 200")
+    @DisplayName("Unit - login - must return status 200")
     void loginTest01() throws IOException, Exception {
         // arrange
         String USERNAME = "username";
@@ -62,11 +62,11 @@ class AccountControllerTest {
         verify(service).auth(any());
     }
     @Test
-    @DisplayName("Login units test with invalid data - must return status 400")
+    @DisplayName("Unit - login with invalid data - must return status 400")
     void loginTest02() throws IOException, Exception {
         // arrange
         String USERNAME = "us";
-        String PASSWORD = "password";
+        String PASSWORD = "pa";
 
         // act
         mvc.perform(
@@ -76,7 +76,7 @@ class AccountControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
-    @DisplayName("Create client user unit test - must return status 200 and user data")
+    @DisplayName("Unit - createClientUser - must return status 200 and user data")
     void createClientUserTest01() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
@@ -102,10 +102,10 @@ class AccountControllerTest {
                         .content(userClientDTOJson.write(userClientDTO).getJson()))
                 .andExpect(status().isOk());
 
-        verify(service).createUserClient(any());
+        verify(service).saveClientUser(any());
     }
     @Test
-    @DisplayName("Create client user uni test with invalid data - must return status 400 and fields with error")
+    @DisplayName("Unit - createClientUser with invalid data - must return status 400 and fields with error")
     void createClientUserTest02() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
@@ -133,7 +133,7 @@ class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Create employee user unit test - must return status 200 and user data")
+    @DisplayName("Unit - createEmployeeUser - must return status 200 and user data")
     void createEmployeeUserTest01() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(
@@ -148,11 +148,11 @@ class AccountControllerTest {
                         .content(userEmployeeDTOJson.write(userEmployee).getJson()))
                 .andExpect(status().isOk());
 
-        verify(service).createUserEmployee(any());
+        verify(service).saveEmployeeUser(any());
     }
 
     @Test
-    @DisplayName("Create employee user unit test with invalid data - must return status 400 and fields with error")
+    @DisplayName("Unit - createEmployeeUser with invalid data - must return status 400 and fields with error")
     void createEmployeeUserTest02() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(

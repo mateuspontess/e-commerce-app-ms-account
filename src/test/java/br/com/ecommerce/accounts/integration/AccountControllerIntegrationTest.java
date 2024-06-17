@@ -56,7 +56,7 @@ class AccountControllerIntegrationTest {
 
 
     @Test
-    @DisplayName("Login - must return status 200 and a valid token")
+    @DisplayName("Integration - login - must return status 200 and a valid token")
     void loginTest01() throws IOException, Exception {
         // arrange
         String USERNAME = "test";
@@ -80,7 +80,7 @@ class AccountControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Login - must return status 401")
+    @DisplayName("Integration - login - must return status 401")
     void loginTest02() throws IOException, Exception {
         // arrange
         String USERNAME = "test";
@@ -89,17 +89,35 @@ class AccountControllerIntegrationTest {
         repository.save(user);
 
         // act and assert
+        LoginDTO requestBody = new LoginDTO(USERNAME, PASSWORD + "invalidatingPassword");
         mvc.perform(
                 post("/account/auth")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginDTOJson.write(new LoginDTO(USERNAME, PASSWORD + "invalidatingPassword"))
-                                .getJson()))
+                        .content(loginDTOJson.write(requestBody).getJson()))
                 .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.token").doesNotExist());
+    }
+    @Test
+    @DisplayName("Integration - login - must return status 400")
+    void loginTest03() throws IOException, Exception {
+        // arrange
+        String USERNAME = "te";
+        String PASSWORD = "te";
+        User user = User.builder().username(USERNAME).password(encoder.encode(PASSWORD)).build();
+        repository.save(user);
+
+        // act and assert
+        LoginDTO requestBody = new LoginDTO(USERNAME, PASSWORD);
+        mvc.perform(
+                post("/account/auth")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(loginDTOJson.write(requestBody).getJson()))
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.token").doesNotExist());
     }
 
     @Test
-    @DisplayName("Create client user with valid data - must return status 200 and user data")
+    @DisplayName("Integration - createClientUser - must return status 200 and user data")
     void createClientUserTest01() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
@@ -131,7 +149,7 @@ class AccountControllerIntegrationTest {
                 .andExpect(jsonPath("$.cpf").isNotEmpty());
     }
     @Test
-    @DisplayName("Create client user with invalid data - must return status 400 and fields with error")
+    @DisplayName("Integration - createClientUser with invalid data - must return status 400 and fields with error")
     void createClientUserTest02() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
@@ -164,7 +182,7 @@ class AccountControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Create employee user with valid data - must return status 200 and user data")
+    @DisplayName("Integration - createEmployee - must return status 200 and user data")
     void createEmployeeUserTest01() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(
@@ -184,7 +202,7 @@ class AccountControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Create employee user with invalid data - must return status 400 and fields with error")
+    @DisplayName("Integration - createEmployee - must return status 400 and fields with error")
     void createEmployeeUserTest02() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(
