@@ -34,14 +34,14 @@ public class AccountController {
 	@PostMapping("/create")
 	@Transactional
 	public ResponseEntity<UserClientCreatedDTO> createClientUser(@RequestBody @Valid UserClientDTO dto) {
-		UserClientCreatedDTO userData = service.createUserClient(dto);
+		UserClientCreatedDTO userData = service.saveClientUser(dto);
 		return ResponseEntity.ok().body(userData);
 	}
 	
 	@PostMapping("/create/employee")
 	@Transactional
 	public ResponseEntity<UserEmployeeCreatedDTO> createEmployeeUser(@RequestBody @Valid UserEmployeeDTO dto) {
-		UserEmployeeCreatedDTO userData = service.createUserEmployee(dto);
+		UserEmployeeCreatedDTO userData = service.saveEmployeeUser(dto);
 		return ResponseEntity.ok().body(userData);
 	}
 }

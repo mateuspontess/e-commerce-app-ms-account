@@ -26,10 +26,10 @@ public class UserService {
 	@Autowired
 	private TokenService tokenService;
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder encoder;
 	
 	
-	public UserClientCreatedDTO createUserClient(UserClientDTO dto) {
+	public UserClientCreatedDTO saveClientUser(UserClientDTO dto) {
 		AddressDTO a = dto.address();
 		User user = new UserBuilder().createUserClient(
 				dto.username(),
@@ -51,7 +51,7 @@ public class UserService {
 		repository.save(user);
 		return new UserClientCreatedDTO(user);
 	}
-	public UserEmployeeCreatedDTO createUserEmployee(UserEmployeeDTO dto) {
+	public UserEmployeeCreatedDTO saveEmployeeUser(UserEmployeeDTO dto) {
 		User user = new UserBuilder()
 			.createUserEmployee(
 				dto.username(),
@@ -68,7 +68,7 @@ public class UserService {
 		User user = repository.findByUsername(dto.username())
 			.orElseThrow(EntityNotFoundException::new);
 
-		if (!this.passwordEncoder.matches(dto.password(), user.getPassword()))
+		if (!this.encoder.matches(dto.password(), user.getPassword()))
 			throw new FailedCredentialsException("Bad credentials");
 		
 		return new TokenDTO(tokenService.generateToken(user));
