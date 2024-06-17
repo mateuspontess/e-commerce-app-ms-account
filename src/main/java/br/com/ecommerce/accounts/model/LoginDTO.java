@@ -1,12 +1,10 @@
 package br.com.ecommerce.accounts.model;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record LoginDTO(
 		
-	    @NotBlank
 	    @Size(min = 3, message = "Cannot be less than 3 characters") 
 	    String username,
 	    
