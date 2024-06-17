@@ -32,7 +32,7 @@ import br.com.ecommerce.accounts.service.UserService;
 import br.com.ecommerce.accounts.utils.TokenFormatValidatorUtils;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserServiceUnitTest {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private TokenService tokenService = new TokenService();

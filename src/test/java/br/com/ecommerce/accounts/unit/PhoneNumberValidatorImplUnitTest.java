@@ -14,7 +14,7 @@ import br.com.ecommerce.accounts.annotation.PhoneNumberValidatorImpl;
 import jakarta.validation.ConstraintValidatorContext;
 
 @ExtendWith(MockitoExtension.class)
-class PhoneNumberValidatorImplTest {
+class PhoneNumberValidatorImplUnitTest {
 
     @Mock
     private ConstraintValidatorContext constraintValidatorContext;

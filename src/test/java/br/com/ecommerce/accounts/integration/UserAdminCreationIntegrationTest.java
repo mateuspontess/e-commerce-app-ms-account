@@ -17,7 +17,7 @@ import br.com.ecommerce.accounts.repository.UserRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase
-class UserAdminCreationTest {
+class UserAdminCreationIntegrationTest {
 
     @Autowired
     private UserRepository repository;

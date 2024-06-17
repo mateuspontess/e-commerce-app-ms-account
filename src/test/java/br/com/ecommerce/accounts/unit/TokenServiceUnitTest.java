@@ -14,7 +14,7 @@ import br.com.ecommerce.accounts.service.TokenService;
 import br.com.ecommerce.accounts.utils.TokenFormatValidatorUtils;
 
 @ExtendWith(MockitoExtension.class)
-class TokenServiceTest {
+class TokenServiceUnitTest {
 	
     @InjectMocks
     private TokenService tokenService;

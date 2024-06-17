@@ -27,7 +27,7 @@ import br.com.ecommerce.accounts.service.UserService;
 
 @WebMvcTest(AccountController.class)
 @AutoConfigureJsonTesters
-class AccountControllerTest {
+class AccountControllerUnitTest {
 
     @Autowired
     private MockMvc mvc;
