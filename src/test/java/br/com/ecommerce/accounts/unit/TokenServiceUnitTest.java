@@ -30,12 +30,11 @@ class TokenServiceUnitTest {
     }
 
     @Test
-    void generateToken() {
+    void generateTokenTest() {
         // act
         var result = tokenService.generateToken(user);
 
         // assert
         assertTrue(TokenFormatValidatorUtils.isValidTokenFormat(result));
     }
-
 }

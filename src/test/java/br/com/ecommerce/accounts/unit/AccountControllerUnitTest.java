@@ -2,6 +2,7 @@ package br.com.ecommerce.accounts.unit;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +47,7 @@ class AccountControllerUnitTest {
 
 
     @Test
-    @DisplayName("Unit - login - must return status 200")
+    @DisplayName("Unit - login - Must return status 200")
     void loginTest01() throws IOException, Exception {
         // arrange
         String USERNAME = "username";
@@ -54,15 +55,17 @@ class AccountControllerUnitTest {
 
         // act
         mvc.perform(
-                post("/account/auth")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginDTOJson.write(new LoginDTO(USERNAME, PASSWORD)).getJson()))
-                .andExpect(status().isOk());
+            post("/account/auth")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(loginDTOJson.write(new LoginDTO(USERNAME, PASSWORD)).getJson())
+        )
+        // assert
+        .andExpect(status().isOk());
 
         verify(service).auth(any());
     }
     @Test
-    @DisplayName("Unit - login with invalid data - must return status 400")
+    @DisplayName("Unit - login with invalid data - Must return status 400")
     void loginTest02() throws IOException, Exception {
         // arrange
         String USERNAME = "us";
@@ -70,70 +73,80 @@ class AccountControllerUnitTest {
 
         // act
         mvc.perform(
-                post("/account/auth")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginDTOJson.write(new LoginDTO(USERNAME, PASSWORD)).getJson()))
-                .andExpect(status().isBadRequest());
+            post("/account/auth")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(loginDTOJson.write(new LoginDTO(USERNAME, PASSWORD)).getJson())
+        )
+        // assert
+        .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(service);
     }
     @Test
-    @DisplayName("Unit - createClientUser - must return status 200 and user data")
+    @DisplayName("Unit - createClientUser - Must return status 200 and user data")
     void createClientUserTest01() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
-                "userclient-san",
-                "password-san!@123",
-                "Client-san",
-                "client@email.com",
-                "(11) 99999-9999",
-                "524.323.760-48",
-                new AddressDTO(
-                        "street",
-                        "neighborhood",
-                        "postal_code",
-                        "number",
-                        "complement",
-                        "city",
-                        "state"));
+            "userclient-san",
+            "password-san!@123",
+            "Client-san",
+            "client@email.com",
+            "(11) 99999-9999",
+            "524.323.760-48",
+            new AddressDTO(
+                "street",
+                "neighborhood",
+                "postal_code",
+                "number",
+                "complement",
+                "city",
+                "state"));
 
-        // act and assert
+        // act
         mvc.perform(
-                post("/account/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userClientDTOJson.write(userClientDTO).getJson()))
-                .andExpect(status().isOk());
+            post("/account/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userClientDTOJson.write(userClientDTO).getJson())
+        )
+        // assert
+        .andExpect(status().isOk());
 
         verify(service).saveClientUser(any());
     }
     @Test
-    @DisplayName("Unit - createClientUser with invalid data - must return status 400 and fields with error")
+    @DisplayName("Unit - createClientUser with invalid data - Must return status 400 and fields with error")
     void createClientUserTest02() throws IOException, Exception {
         // arrange
         UserClientDTO userClientDTO = new UserClientDTO(
-                "us",
-                "password",
+            "us",
+            "password",
+            "",
+            "clientemail.com",
+            "(11) 9999-9999",
+            "524.323.760-40",
+            new AddressDTO(
                 "",
-                "clientemail.com",
-                "(11) 9999-9999",
-                "524.323.760-40",
-                new AddressDTO(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""));
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""));
 
-        // act and assert
+        // act
         mvc.perform(
-                post("/account/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userClientDTOJson.write(userClientDTO).getJson()))
-                .andExpect(status().isBadRequest());
+            post("/account/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userClientDTOJson.write(userClientDTO).getJson())
+        )
+        // assert
+        .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(service);
     }
 
     @Test
-    @DisplayName("Unit - createEmployeeUser - must return status 200 and user data")
+    @DisplayName("Unit - createEmployeeUser - Must return status 200 and user data")
     void createEmployeeUserTest01() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(
@@ -141,30 +154,35 @@ class AccountControllerUnitTest {
             "password-san!@123",
             "Client-san");
 
-        // act and assert
+        // act
         mvc.perform(
-                post("/account/create/employee")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userEmployeeDTOJson.write(userEmployee).getJson()))
-                .andExpect(status().isOk());
+            post("/account/create/employee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userEmployeeDTOJson.write(userEmployee).getJson())
+        )
+        // assert
+        .andExpect(status().isOk());
 
         verify(service).saveEmployeeUser(any());
     }
-
     @Test
-    @DisplayName("Unit - createEmployeeUser with invalid data - must return status 400 and fields with error")
+    @DisplayName("Unit - createEmployeeUser with invalid data - Must return status 400 and fields with error")
     void createEmployeeUserTest02() throws IOException, Exception {
         // arrange
         UserEmployeeDTO userEmployee = new UserEmployeeDTO(
-            "",
-            "",
+            "ab",
+            "password",
             "");
 
-        // act and assert
+        // act
         mvc.perform(
-                post("/account/create/employee")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userEmployeeDTOJson.write(userEmployee).getJson()))
-                .andExpect(status().isBadRequest());
+            post("/account/create/employee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userEmployeeDTOJson.write(userEmployee).getJson())
+        )
+        // assert
+        .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(service);
     }
 }
