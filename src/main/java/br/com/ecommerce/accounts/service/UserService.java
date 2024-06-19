@@ -32,21 +32,21 @@ public class UserService {
 	public UserClientCreatedDTO saveClientUser(UserClientDTO dto) {
 		AddressDTO a = dto.address();
 		User user = new UserBuilder().createUserClient(
-				dto.username(),
-				dto.password(),
-				dto.name(),
-				dto.email(),
-				dto.phone_number(),
-				dto.cpf(),
-				new Address(
-						a.street(),
-						a.neighborhood(),
-						a.postal_code(),
-						a.number(),
-						a.complement(),
-						a.city(),
-						a.state()))
-				.build();
+			dto.username(),
+			dto.password(),
+			dto.name(),
+			dto.email(),
+			dto.phone_number(),
+			dto.cpf(),
+			new Address(
+				a.street(),
+				a.neighborhood(),
+				a.postal_code(),
+				a.number(),
+				a.complement(),
+				a.city(),
+				a.state()))
+			.build();
 
 		repository.save(user);
 		return new UserClientCreatedDTO(user);
@@ -56,8 +56,7 @@ public class UserService {
 			.createUserEmployee(
 				dto.username(),
 				dto.password(),
-				dto.name()
-			)
+				dto.name())
 			.build();
 				
 		repository.save(user);

@@ -36,14 +36,14 @@ public class UserBuilder {
         this.role = UserRole.CLIENT;
         
         this.address = new Address(
-        		address.getStreet(),
-        		address.getNeighborhood(),
-        		address.getPostal_code(),
-        		address.getNumber(),
-        		address.getComplement(),
-        		address.getCity(),
-        		address.getState());
-        
+            address.getStreet(),
+            address.getNeighborhood(),
+            address.getPostal_code(),
+            address.getNumber(),
+            address.getComplement(),
+            address.getCity(),
+            address.getState());
+    
         return this;
     }
     public UserBuilder createUserEmployee(String username, String password, String name) {

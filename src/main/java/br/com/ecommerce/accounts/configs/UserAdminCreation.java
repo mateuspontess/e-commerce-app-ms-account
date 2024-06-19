@@ -23,8 +23,8 @@ public class UserAdminCreation {
 	public void createUserAdmin() {
 		if(!rp.existsByUsername(username)) {
 			User userAdmin = new UserBuilder()
-					.createUserAdmin(username, password, UserRole.ADMIN)
-					.build();
+				.createUserAdmin(username, password, UserRole.ADMIN)
+				.build();
 
 			rp.save(userAdmin);
 		}

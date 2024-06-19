@@ -16,7 +16,7 @@ public record UserClientDTO (
     String username,
     
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message = "The password must contain at least one letter, one special character and be at least 8 characters long")
+        message = "The password must contain at least one letter, one special character and be at least 8 characters long")
     String password,
     
     @NotBlank

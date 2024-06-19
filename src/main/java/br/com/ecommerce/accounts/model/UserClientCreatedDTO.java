@@ -9,11 +9,12 @@ public record UserClientCreatedDTO(
         Address address) {
     public UserClientCreatedDTO(User user) {
         this(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getPhone_number(),
-                user.getCpf(),
-                user.getAddress());
+            user.getId(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone_number(),
+            user.getCpf(),
+            user.getAddress()
+        );
     }
 }

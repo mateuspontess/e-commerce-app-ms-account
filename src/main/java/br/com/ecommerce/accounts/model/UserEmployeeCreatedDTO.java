@@ -7,8 +7,9 @@ public record UserEmployeeCreatedDTO(
             
     public UserEmployeeCreatedDTO(User user) {
         this(
-                user.getId(),
-                user.getUsername(),
-                user.getName());
+            user.getId(),
+            user.getUsername(),
+            user.getName()
+        );
     }
 }
