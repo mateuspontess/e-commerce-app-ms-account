@@ -100,7 +100,9 @@ class AccountControllerIntegrationTest {
         )
         // assert
         .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.token").doesNotExist());
+        .andExpect(jsonPath("$.token").doesNotExist())
+        .andExpect(jsonPath("$.fields.username").exists())
+        .andExpect(jsonPath("$.fields.password").exists());
     }
     @Test
     @DisplayName("Integration - login - Should return status 400 when user is not found")
@@ -212,7 +214,14 @@ class AccountControllerIntegrationTest {
         .andExpect(jsonPath("$.fields.password").exists())
         .andExpect(jsonPath("$.fields.name").exists())
         .andExpect(jsonPath("$.fields.email").exists())
-        .andExpect(jsonPath("$.fields.phone_number").exists());
+        .andExpect(jsonPath("$.fields.phone_number").exists())
+        .andExpect(jsonPath("$.fields.['address.street']").exists())
+        .andExpect(jsonPath("$.fields.['address.neighborhood']").exists())
+        .andExpect(jsonPath("$.fields.['address.postal_code']").exists())
+        .andExpect(jsonPath("$.fields.['address.number']").exists())
+        .andExpect(jsonPath("$.fields.['address.complement']").exists())
+        .andExpect(jsonPath("$.fields.['address.city']").exists())
+        .andExpect(jsonPath("$.fields.['address.state']").exists());
     }
 
     @Test
