@@ -30,6 +30,7 @@ import br.com.ecommerce.accounts.repository.UserRepository;
 import br.com.ecommerce.accounts.service.TokenService;
 import br.com.ecommerce.accounts.service.UserService;
 import br.com.ecommerce.accounts.utils.TokenFormatValidatorUtils;
+import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceUnitTest {
@@ -92,29 +93,42 @@ class UserServiceUnitTest {
         ReflectionTestUtils.setField(service, "tokenService", this.tokenService);
         ReflectionTestUtils.setField(tokenService, "secret", "secret");
 
-        String PASSWORD_DEFINED = "123";
-        User userMock = User.builder().password(encoder.encode(PASSWORD_DEFINED)).build();
+        String PASSWORD = "123";
+        User userMock = User.builder().password(encoder.encode(PASSWORD)).build();
         when(repository.findByUsername(anyString())).thenReturn(Optional.of(userMock));
         
         // act and assert
-        String VALID_PASSWORD = PASSWORD_DEFINED;
-        LoginDTO validInput = new LoginDTO("anything", VALID_PASSWORD);
+        LoginDTO validInput = new LoginDTO("anything", PASSWORD);
         assertDoesNotThrow(() -> {
             var result =  service.auth(validInput);
             assertTrue(TokenFormatValidatorUtils.isValidTokenFormat(result.token()));
         });
     }
-
     @Test
-    @DisplayName("Unit - auth - Must throw exceptions when passing invalid input")
+    @DisplayName("Unit - auth - Should throw exceptions when not finding the user")
     void authTest02() {
         // arrange
         ReflectionTestUtils.setField(service, "encoder", this.encoder);
         ReflectionTestUtils.setField(service, "tokenService", this.tokenService);
         ReflectionTestUtils.setField(tokenService, "secret", "secret");
 
-        String PASSWORD_DEFINED = "123";
-        User userMock = User.builder().password(encoder.encode(PASSWORD_DEFINED)).build();
+        // simulates an unsuccessful query by the user
+        
+        // act and assert
+        String INVALID_PASSWORD = "1234";
+        LoginDTO invalidInput = new LoginDTO("anything", INVALID_PASSWORD);
+        assertThrows(EntityNotFoundException.class, () -> service.auth(invalidInput));
+    }
+    @Test
+    @DisplayName("Unit - auth - Must throw exceptions when passing invalid input")
+    void authTest03() {
+        // arrange
+        ReflectionTestUtils.setField(service, "encoder", this.encoder);
+        ReflectionTestUtils.setField(service, "tokenService", this.tokenService);
+        ReflectionTestUtils.setField(tokenService, "secret", "secret");
+
+        String PASSWORD = "123";
+        User userMock = User.builder().password(encoder.encode(PASSWORD)).build();
         when(repository.findByUsername(anyString())).thenReturn(Optional.of(userMock));
         
         // act and assert
