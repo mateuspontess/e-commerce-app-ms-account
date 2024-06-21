@@ -16,19 +16,16 @@ public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumber
 	
 	@Override
 	public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-		if (phoneNumber != null && !phoneNumber.isEmpty()) {
-			PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
-			PhoneNumber pn;
+		PhoneNumberUtil pnUtil = PhoneNumberUtil.getInstance();
+		PhoneNumber pn;
 			
-			try {
-				pn = pnUtil.parse(phoneNumber, "BR");
-				
-			} catch (NumberParseException e) {
-				return false;
-			}
+		try {
+			pn = pnUtil.parse(phoneNumber, "BR");
 			
-			return pnUtil.isValidNumberForRegion(pn, "BR");
-		}	
-		return false;
+		} catch (NumberParseException e) {
+			return false;
+		}
+			
+		return pnUtil.isValidNumberForRegion(pn, "BR");
 	}
 }
