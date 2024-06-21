@@ -7,63 +7,23 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor
-@Data
 public class UserBuilder {
-
-    private Long id;
-    private String username;
-    private String password;
-    private String name;
-    private String email;
-    private String phone_number;
-    private String cpf;
-    private Address address;
-    private UserRole role;
-
     
-    public UserBuilder createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address) {
-    	this.password = this.encodePassword(password);
-    	this.phone_number = this.formatPhoneNumber(phone_number);
-    	
-    	this.username = username;
-        this.name = name;
-        this.email = email;
-        this.cpf = cpf;
-        this.role = UserRole.CLIENT;
-        
-        this.address = new Address(
-            address.getStreet(),
-            address.getNeighborhood(),
-            address.getPostal_code(),
-            address.getNumber(),
-            address.getComplement(),
-            address.getCity(),
-            address.getState());
-    
-        return this;
+    public User createUserClient(String username, String password, String name, String email, String phone_number, String cpf, Address address) {
+        return new User(null, username, encodePassword(password), name, email, formatPhoneNumber(phone_number), cpf, address, UserRole.CLIENT);
     }
-    public UserBuilder createUserEmployee(String username, String password, String name) {
-    	this.password = this.encodePassword(password);
-    	
-    	this.username = username;
-    	this.name = name;
-    	this.role = UserRole.EMPLOYEE;
-    	
-    	return this;
+    public User createUserEmployee(String username, String password, String name) {
+        return new User(null, username, encodePassword(password), name, null, null, null, null, UserRole.EMPLOYEE);
     }
-    public UserBuilder createUserAdmin(String username, String password, UserRole role) {
-    	this.password = this.encodePassword(password);
-    	this.username = username;
-    	this.role = UserRole.ADMIN;
-    	
-    	return this;
+    public User createUserAdmin(String username, String password, String name) {    	
+        return new User(null, username, encodePassword(password), name, null, null, null, null, UserRole.ADMIN);
     }
     
-    public String formatPhoneNumber(String phoneNumber) {
+    private String formatPhoneNumber(String phoneNumber) {
     	PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
     	PhoneNumber phoneNumberObject = null;
     	
@@ -72,17 +32,13 @@ public class UserBuilder {
 			
 		} catch (NumberParseException e) {
 			e.printStackTrace();
-			throw new RuntimeException("phoneNumber conversion failed");
+			throw new RuntimeException("Conversion failed: phone number");
 		}
     	
         return phoneNumberUtil.format(phoneNumberObject, PhoneNumberFormat.INTERNATIONAL);
     }
     
-    public String encodePassword(String password) {
+    private String encodePassword(String password) {
     	return new BCryptPasswordEncoder().encode(password);
-    }
-    
-    public User build() {
-        return new User(id, username, password, name, email, phone_number, cpf, address, role);
     }
 }

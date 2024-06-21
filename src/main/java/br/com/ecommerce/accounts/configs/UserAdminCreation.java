@@ -3,9 +3,9 @@ package br.com.ecommerce.accounts.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import br.com.ecommerce.accounts.model.User;
 import br.com.ecommerce.accounts.model.UserBuilder;
-import br.com.ecommerce.accounts.model.UserRole;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 
@@ -23,8 +23,7 @@ public class UserAdminCreation {
 	public void createUserAdmin() {
 		if(!rp.existsByUsername(username)) {
 			User userAdmin = new UserBuilder()
-				.createUserAdmin(username, password, UserRole.ADMIN)
-				.build();
+				.createUserAdmin(username, password, "default admin");
 
 			rp.save(userAdmin);
 		}

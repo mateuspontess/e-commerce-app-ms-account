@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.ecommerce.accounts.dto.AddressDTO;
+import br.com.ecommerce.accounts.dto.LoginDTO;
+import br.com.ecommerce.accounts.dto.TokenDTO;
+import br.com.ecommerce.accounts.dto.UserClientCreatedDTO;
+import br.com.ecommerce.accounts.dto.UserClientDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeCreatedDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeDTO;
 import br.com.ecommerce.accounts.exception.FailedCredentialsException;
 import br.com.ecommerce.accounts.model.Address;
-import br.com.ecommerce.accounts.model.AddressDTO;
-import br.com.ecommerce.accounts.model.LoginDTO;
-import br.com.ecommerce.accounts.model.TokenDTO;
 import br.com.ecommerce.accounts.model.User;
 import br.com.ecommerce.accounts.model.UserBuilder;
-import br.com.ecommerce.accounts.model.UserClientCreatedDTO;
-import br.com.ecommerce.accounts.model.UserClientDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeCreatedDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -45,19 +45,18 @@ public class UserService {
 				a.number(),
 				a.complement(),
 				a.city(),
-				a.state()))
-			.build();
+				a.state())
+		);
 
 		repository.save(user);
 		return new UserClientCreatedDTO(user);
 	}
 	public UserEmployeeCreatedDTO saveEmployeeUser(UserEmployeeDTO dto) {
-		User user = new UserBuilder()
-			.createUserEmployee(
-				dto.username(),
-				dto.password(),
-				dto.name())
-			.build();
+		User user = new UserBuilder().createUserEmployee(
+			dto.username(),
+			dto.password(),
+			dto.name()
+		);
 				
 		repository.save(user);
 		return new UserEmployeeCreatedDTO(user);
