@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ecommerce.accounts.model.LoginDTO;
-import br.com.ecommerce.accounts.model.TokenDTO;
-import br.com.ecommerce.accounts.model.UserClientCreatedDTO;
-import br.com.ecommerce.accounts.model.UserClientDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeCreatedDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeDTO;
+import br.com.ecommerce.accounts.dto.LoginDTO;
+import br.com.ecommerce.accounts.dto.TokenDTO;
+import br.com.ecommerce.accounts.dto.UserClientCreatedDTO;
+import br.com.ecommerce.accounts.dto.UserClientDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeCreatedDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeDTO;
 import br.com.ecommerce.accounts.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

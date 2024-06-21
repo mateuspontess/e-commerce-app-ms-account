@@ -20,12 +20,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import br.com.ecommerce.accounts.dto.AddressDTO;
+import br.com.ecommerce.accounts.dto.LoginDTO;
+import br.com.ecommerce.accounts.dto.UserClientDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeDTO;
 import br.com.ecommerce.accounts.exception.FailedCredentialsException;
-import br.com.ecommerce.accounts.model.AddressDTO;
-import br.com.ecommerce.accounts.model.LoginDTO;
 import br.com.ecommerce.accounts.model.User;
-import br.com.ecommerce.accounts.model.UserClientDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import br.com.ecommerce.accounts.service.TokenService;
 import br.com.ecommerce.accounts.service.UserService;

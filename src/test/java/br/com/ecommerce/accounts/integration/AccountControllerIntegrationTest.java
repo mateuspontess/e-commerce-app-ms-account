@@ -23,11 +23,11 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.com.ecommerce.accounts.model.AddressDTO;
-import br.com.ecommerce.accounts.model.LoginDTO;
+import br.com.ecommerce.accounts.dto.AddressDTO;
+import br.com.ecommerce.accounts.dto.LoginDTO;
+import br.com.ecommerce.accounts.dto.UserClientDTO;
+import br.com.ecommerce.accounts.dto.UserEmployeeDTO;
 import br.com.ecommerce.accounts.model.User;
-import br.com.ecommerce.accounts.model.UserClientDTO;
-import br.com.ecommerce.accounts.model.UserEmployeeDTO;
 import br.com.ecommerce.accounts.repository.UserRepository;
 import br.com.ecommerce.accounts.utils.TokenFormatValidatorUtils;
 
