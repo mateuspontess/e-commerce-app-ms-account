@@ -1,4 +1,4 @@
-package br.com.ecommerce.accounts.model;
+package br.com.ecommerce.accounts.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -18,4 +18,4 @@ public record AddressDTO (
     String city,
     @NotBlank
     String state
-	){}
+    ) {}

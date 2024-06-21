@@ -1,4 +1,6 @@
-package br.com.ecommerce.accounts.model;
+package br.com.ecommerce.accounts.dto;
+
+import br.com.ecommerce.accounts.model.User;
 
 public record UserEmployeeCreatedDTO(
         Long id,

@@ -1,4 +1,4 @@
-package br.com.ecommerce.accounts.model;
+package br.com.ecommerce.accounts.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -15,4 +15,4 @@ public record UserEmployeeDTO (
     
     @NotBlank
     String name
-	){}
+	) {}

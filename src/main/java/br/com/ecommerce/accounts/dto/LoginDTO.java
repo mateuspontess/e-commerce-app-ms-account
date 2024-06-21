@@ -1,4 +1,4 @@
-package br.com.ecommerce.accounts.model;
+package br.com.ecommerce.accounts.dto;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

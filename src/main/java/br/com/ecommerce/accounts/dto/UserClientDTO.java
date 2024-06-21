@@ -1,4 +1,4 @@
-package br.com.ecommerce.accounts.model;
+package br.com.ecommerce.accounts.dto;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -33,4 +33,4 @@ public record UserClientDTO (
     
     @NotNull @Valid
     AddressDTO address
-	){}
+	) {}
